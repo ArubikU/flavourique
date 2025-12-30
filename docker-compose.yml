@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # Base de datos PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: flavorique-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: flavorique
+      POSTGRES_USER: flavorique_user
+      POSTGRES_PASSWORD: flavorique_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flavorique_user -d flavorique"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Adminer - GUI para gestionar la base de datos (opcional)
+  adminer:
+    image: adminer:latest
+    container_name: flavorique-adminer
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+
+volumes:
+  postgres_data:
+    name: flavorique_postgres_data

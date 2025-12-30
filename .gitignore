@@ -1,0 +1,58 @@
+# ============================================
+# Flavorique - Git Ignore
+# ============================================
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+
+# Backend - Java/Maven
+backend/target/
+backend/*.jar
+backend/*.war
+backend/*.log
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Backend - Gradle
+backend/build/
+backend/.gradle/
+
+# Frontend - Node
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.npm/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Testing
+frontend/coverage/
+backend/jacoco/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+docker/db/data/
+
+# Logs
+logs/
+*.log
+
+# Temp files
+*.tmp
+*.temp
