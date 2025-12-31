@@ -2,6 +2,8 @@
 
 Spring Boot backend for the Flavorique recipe management application.
 
+🌐 **Production:** [https://flavourique.onrender.com](https://flavourique.onrender.com)
+
 ## Technologies
 
 - Java 17
@@ -67,7 +69,8 @@ java -jar target/flavorique-1.0.0-SNAPSHOT.jar
 ## API Documentation
 
 Once running, access Swagger UI at:
-- http://localhost:8080/api/swagger-ui.html
+- Local: http://localhost:8080/api/swagger-ui.html
+- Production: https://flavourique.onrender.com/api/swagger-ui.html
 
 API Docs JSON:
 - http://localhost:8080/api/api-docs
@@ -96,6 +99,27 @@ API Docs JSON:
 ### Favorites
 - `POST /api/favorites/recipes/{recipeId}` - Toggle favorite
 - `GET /api/favorites/recipes/{recipeId}` - Check if favorite
+- `GET /api/favorites/me` - Get user's favorites
+
+### Reviews
+- `GET /api/recipes/{recipeId}/reviews` - Get recipe reviews
+- `POST /api/recipes/{recipeId}/reviews` - Add review
+- `PUT /api/recipes/{recipeId}/reviews` - Update review
+- `DELETE /api/recipes/{recipeId}/reviews` - Delete review
+
+## Environment Variables (Production)
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DATABASE_HOST` | ✅ | PostgreSQL host |
+| `DATABASE_PORT` | ❌ | Port (default: 5432) |
+| `DATABASE_NAME` | ✅ | Database name |
+| `DATABASE_USERNAME` | ✅ | Database user |
+| `DATABASE_PASSWORD` | ✅ | Database password |
+| `JWT_SECRET` | ❌ | JWT secret (has default) |
+| `ADMIN_USERNAME` | ❌ | Initial admin username |
+| `ADMIN_EMAIL` | ❌ | Initial admin email |
+| `ADMIN_PASSWORD` | ❌ | Initial admin password |
 
 ## Testing
 

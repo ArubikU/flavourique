@@ -2,7 +2,9 @@
 
 > **Un recetario virtual full-stack con sistema de cuentas, favoritos y comunidad**
 
-Flavorique es una aplicación web completa para gestionar recetas personales y descubrir creaciones de otros usuarios. Construida con **Spring Boot** en el backend y **Angular** en el frontend, demuestra arquitectura empresarial moderna y mejores prácticas de desarrollo full-stack.
+🌐 **Demo en vivo:** [https://flavourique.onrender.com](https://flavourique.onrender.com)
+
+Flavorique es una aplicación web completa para gestionar recetas personales y descubrir creaciones de otros usuarios. Construida con **Spring Boot** en el backend y **Angular 19** en el frontend, demuestra arquitectura empresarial moderna y mejores prácticas de desarrollo full-stack.
 
 ---
 
@@ -69,22 +71,25 @@ Este proyecto fue creado para:
 
 ### Frontend (Angular)
 ```
-├── Angular 17+
-├── TypeScript
-├── Angular Material / TailwindCSS
+├── Angular 19
+├── TypeScript 5.6
+├── Standalone Components
+├── Signals (State Management)
 ├── RxJS
-├── NgRx (State Management)
 ├── Angular Router
-└── Angular Forms (Reactive)
+├── Angular Forms (Reactive)
+├── SCSS
+└── PWA Support
 ```
 
-### DevOps
+### DevOps & Hosting
 ```
-├── Docker & Docker Compose
-├── GitHub Actions (CI/CD)
-├── PostgreSQL (Producción)
-├── H2 (Desarrollo/Testing)
-└── Nginx (Reverse Proxy)
+├── Docker (Multi-stage builds)
+├── Nginx (Reverse Proxy)
+├── Render.com (Hosting)
+├── Neon (PostgreSQL Cloud)
+├── Supervisor (Process Manager)
+└── GitHub
 ```
 
 ---
@@ -185,16 +190,26 @@ La aplicación estará disponible en:
 - Frontend: `http://localhost:4200`
 - Backend API: `http://localhost:8080/api`
 - Swagger UI: `http://localhost:8080/api/swagger-ui.html`
-- Adminer (solo con --profile dev): `http://localhost:8081`
+
+**Producción:**
+- 🌐 [https://flavourique.onrender.com](https://flavourique.onrender.com)
 
 ### Servicios Docker
 
 | Servicio | Puerto | Descripción |
 |----------|--------|-------------|
-| `db` | 5432 | PostgreSQL 15 |
-| `backend` | 8080 | Spring Boot API |
-| `frontend` | 4200 | Angular (Nginx) |
-| `adminer` | 8081 | DB Admin (dev only) |
+| `app` | 80 | App completa (Backend + Frontend) |
+
+### Variables de Entorno (Producción)
+
+| Variable | Descripción |
+|----------|-------------|
+| `DATABASE_HOST` | Host de PostgreSQL |
+| `DATABASE_PORT` | Puerto (default: 5432) |
+| `DATABASE_NAME` | Nombre de la base de datos |
+| `DATABASE_USERNAME` | Usuario |
+| `DATABASE_PASSWORD` | Contraseña |
+| `JWT_SECRET` | Clave secreta para JWT |
 
 ---
 
@@ -251,12 +266,17 @@ ng e2e
 - [x] Autenticación JWT
 - [x] CRUD de recetas
 - [x] Sistema de favoritos
-- [ ] Subida de imágenes (AWS S3 o Cloudinary)
-- [ ] Sistema de calificaciones
-- [ ] Comentarios en recetas
+- [x] Sistema de calificaciones y reseñas
+- [x] Perfiles de usuario editables
+- [x] Cambio de contraseña
+- [x] Eliminación de cuenta
+- [x] Búsqueda y filtros avanzados
+- [x] PWA Support
+- [x] Tema claro/oscuro
+- [x] Despliegue en producción
+- [ ] Subida de imágenes (Cloudinary)
 - [ ] Notificaciones en tiempo real
-- [ ] PWA Support
-- [ ] Modo offline
+- [ ] Sistema de seguimiento de usuarios
 - [ ] API de nutrición integrada
 
 ---
