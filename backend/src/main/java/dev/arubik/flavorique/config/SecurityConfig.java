@@ -60,7 +60,8 @@ public class SecurityConfig {
             "http://localhost:3000",
             "http://localhost",
             "http://frontend",
-            "http://flavorique-frontend"
+            "http://flavorique-frontend",
+            "https://flavourique.onrender.com"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
@@ -80,7 +81,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**", "/h2-console/**", "/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/actuator/**", "/actuator/health/**").permitAll()
-                .requestMatchers("/recipes", "/recipes/**", "/categories/**", "/tags/**", "/users/**").permitAll()
+                .requestMatchers("/recipes/**", "/categories/**", "/tags/**", "/users/**").permitAll()
+                .requestMatchers("/recipes", "/categories", "/tags", "/users").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

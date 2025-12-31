@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-@Profile("dev")
+@Profile({"dev"})
 @Slf4j
 public class DataLoader implements CommandLineRunner {
 
