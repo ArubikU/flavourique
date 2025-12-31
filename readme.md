@@ -306,4 +306,14 @@ Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detal
 
 ---
 
+## 💚 Dedicatoria
+
+> *Este proyecto está dedicado a **Lian Solorzano**, quien me dio la idea original para crear Flavorique.*
+> 
+> *Gracias por inspirar este recetario virtual y por ser una gran amiga. ¡Las mejores recetas nacen de las mejores ideas!*
+>
+> *— 14 de enero, día especial en Flavorique 🎂*
+
+---
+
 ⭐ Si este proyecto te resulta útil, considera darle una estrella en GitHub.

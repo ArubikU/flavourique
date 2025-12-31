@@ -10,9 +10,12 @@ import { AuthService } from '@core/services';
     <nav class="navbar">
       <div class="navbar-container container container-readable">
         <!-- Logo -->
-        <a routerLink="/" class="navbar-logo">
+        <a routerLink="/" class="navbar-logo" [title]="logoTooltip">
           <img src="/isotipo.png" alt="Flavorique" class="navbar-logo-icon" />
           <span class="navbar-logo-text">Flavorique</span>
+          @if (isLianDay) {
+            <span class="lian-badge-mini">�</span>
+          }
         </a>
 
         <!-- Navigation Links -->
@@ -174,6 +177,16 @@ import { AuthService } from '@core/services';
       font-size: 20px;
       font-weight: 700;
       color: var(--color-primary-500);
+    }
+
+    .lian-badge-mini {
+      font-size: 12px;
+      animation: pulse-heart 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-heart {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
 
     .navbar-links {
@@ -447,6 +460,17 @@ export class NavbarComponent {
   authService = inject(AuthService);
   showUserMenu = false;
   showMobileMenu = false;
+  
+  // Dedicatoria a Lian Solorzano
+  isLianDay = this.checkIfLianDay();
+  logoTooltip = this.isLianDay 
+    ? '💚 Hoy celebramos a Lian Solorzano, quien inspiró Flavorique 💚' 
+    : 'Inspirado por Lian Solorzano 💚';
+
+  private checkIfLianDay(): boolean {
+    const today = new Date();
+    return today.getMonth() === 0 && today.getDate() === 14;
+  }
 
   toggleUserMenu(): void {
     this.showUserMenu = !this.showUserMenu;

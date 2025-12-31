@@ -70,7 +70,7 @@ import { RouterLink } from '@angular/router';
 
         <div class="footer-bottom">
           <p>&copy; {{ currentYear }} Flavorique. Todos los derechos reservados.</p>
-          <p class="footer-made">Hecho con <span class="heart">❤️</span> para amantes de la cocina</p>
+          <p class="footer-made">{{ footerMessage }}</p>
         </div>
       </div>
     </footer>
@@ -211,4 +211,15 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
+  
+  get footerMessage(): string {
+    const today = new Date();
+    const isJanuary14 = today.getMonth() === 0 && today.getDate() === 14;
+    
+    if (isJanuary14) {
+      return '💚 Dedicado a Lian Solorzano, quien inspiró esta web 💚';
+    }
+    
+    return 'Hecho con ❤️ para amantes de la cocina';
+  }
 }
