@@ -127,7 +127,7 @@ import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/load
                 </h2>
                 @if (recipe()?.steps && recipe()!.steps.length > 0) {
                   <ol class="steps-list">
-                    @for (step of recipe()?.steps || []; track step.stepNumber) {
+                    @for (step of getSortedSteps(); track step.stepNumber) {
                       <li class="step-item">
                         <div class="step-number">{{ step.stepNumber }}</div>
                         <div class="step-content">
@@ -771,6 +771,11 @@ export class RecipeDetailComponent implements OnInit {
       HARD: 'Difícil',
     };
     return labels[this.recipe()?.difficulty || ''] || this.recipe()?.difficulty || '';
+  }
+
+  getSortedSteps() {
+    const steps = this.recipe()?.steps || [];
+    return [...steps].sort((a, b) => a.stepNumber - b.stepNumber);
   }
 
   getDifficultyIcon(): string {
