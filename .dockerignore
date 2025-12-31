@@ -1,0 +1,16 @@
+target/
+!target/*.jar
+.git
+.gitignore
+.idea
+*.iml
+*.log
+*.md
+!README.md
+node_modules
+.angular
+dist
+frontend/flavorique-app/node_modules
+frontend/flavorique-app/.angular
+frontend/flavorique-app/dist
+backend/.mvn/wrapper/maven-wrapper.jar

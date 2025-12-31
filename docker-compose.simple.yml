@@ -1,0 +1,59 @@
+version: '3.8'
+
+# Simplified deployment - Single container for the entire application
+# Use: docker-compose -f docker-compose.simple.yml up -d
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: flavorique-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: flavorique
+      POSTGRES_USER: flavorique_user
+      POSTGRES_PASSWORD: flavorique_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flavorique_user -d flavorique"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flavorique-network
+
+  # All-in-One Application (Backend + Frontend)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flavorique-app
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/flavorique
+      SPRING_DATASOURCE_USERNAME: flavorique_user
+      SPRING_DATASOURCE_PASSWORD: flavorique_secret
+      JWT_SECRET: flavorique-super-secret-key-for-jwt-token-generation-minimum-256-bits-production
+      ADMIN_USERNAME: Arubik
+      ADMIN_EMAIL: arubik4u@gmail.com
+      ADMIN_PASSWORD: Admin123!
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - flavorique-network
+
+networks:
+  flavorique-network:
+    driver: bridge
+    name: flavorique-network
+
+volumes:
+  postgres_data:
+    name: flavorique_postgres_data
