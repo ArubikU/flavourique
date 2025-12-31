@@ -157,7 +157,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:flavorique-super-secret-key-for-jwt-token-generation-minimum-256-bits}
 
 app:
   admin:
