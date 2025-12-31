@@ -4,6 +4,16 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { User } from '../models';
 
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface DeleteAccountRequest {
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -22,5 +32,13 @@ export class UserService {
 
   updateUser(id: number, userData: Partial<User>): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${id}`, userData);
+  }
+
+  changePassword(request: ChangePasswordRequest): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/me/change-password`, request);
+  }
+
+  deleteAccount(request: DeleteAccountRequest): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/me`, { body: request });
   }
 }

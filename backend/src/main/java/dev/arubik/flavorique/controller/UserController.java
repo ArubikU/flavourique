@@ -1,11 +1,16 @@
 package dev.arubik.flavorique.controller;
 
+import dev.arubik.flavorique.dto.ChangePasswordRequest;
+import dev.arubik.flavorique.dto.DeleteAccountRequest;
 import dev.arubik.flavorique.dto.UserDto;
+import dev.arubik.flavorique.security.UserPrincipal;
 import dev.arubik.flavorique.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,5 +42,23 @@ public class UserController {
             @RequestBody UserDto userDto) {
         UserDto updatedUser = userService.updateUser(id, userDto);
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @PostMapping("/me/change-password")
+    @Operation(summary = "Change current user's password")
+    public ResponseEntity<Void> changePassword(
+            @AuthenticationPrincipal UserPrincipal currentUser,
+            @Valid @RequestBody ChangePasswordRequest request) {
+        userService.changePassword(currentUser, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/me")
+    @Operation(summary = "Delete current user's account")
+    public ResponseEntity<Void> deleteAccount(
+            @AuthenticationPrincipal UserPrincipal currentUser,
+            @Valid @RequestBody DeleteAccountRequest request) {
+        userService.deleteAccount(currentUser, request.getPassword());
+        return ResponseEntity.noContent().build();
     }
 }

@@ -222,6 +222,183 @@ import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/load
             </button>
           </div>
         </form>
+
+        <!-- Change Password Section -->
+        <section class="form-section security-section">
+          <h2 class="section-title">
+            <span class="material-icons-outlined">lock</span>
+            Cambiar Contraseña
+          </h2>
+          <p class="section-description">Actualiza tu contraseña para mantener tu cuenta segura</p>
+
+          <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+            <div class="form-group">
+              <label for="currentPassword" class="input-label">Contraseña Actual *</label>
+              <input
+                type="password"
+                id="currentPassword"
+                formControlName="currentPassword"
+                class="input"
+                [class.input-error]="isPasswordFieldInvalid('currentPassword')"
+                placeholder="Tu contraseña actual"
+              />
+              @if (isPasswordFieldInvalid('currentPassword')) {
+                <span class="input-helper input-helper-error">
+                  La contraseña actual es requerida
+                </span>
+              }
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="newPassword" class="input-label">Nueva Contraseña *</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  formControlName="newPassword"
+                  class="input"
+                  [class.input-error]="isPasswordFieldInvalid('newPassword')"
+                  placeholder="Mínimo 6 caracteres"
+                />
+                @if (isPasswordFieldInvalid('newPassword')) {
+                  <span class="input-helper input-helper-error">
+                    Mínimo 6 caracteres
+                  </span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword" class="input-label">Confirmar Contraseña *</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  formControlName="confirmPassword"
+                  class="input"
+                  [class.input-error]="isPasswordFieldInvalid('confirmPassword')"
+                  placeholder="Repite la nueva contraseña"
+                />
+                @if (isPasswordFieldInvalid('confirmPassword')) {
+                  <span class="input-helper input-helper-error">
+                    Las contraseñas deben coincidir
+                  </span>
+                }
+              </div>
+            </div>
+
+            @if (passwordError()) {
+              <div class="alert alert-error">
+                <span class="material-icons-outlined">error_outline</span>
+                {{ passwordError() }}
+              </div>
+            }
+
+            @if (passwordSuccess()) {
+              <div class="alert alert-success">
+                <span class="material-icons-outlined">check_circle_outline</span>
+                {{ passwordSuccess() }}
+              </div>
+            }
+
+            <div class="form-actions form-actions-left">
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="changingPassword() || passwordForm.invalid"
+              >
+                @if (changingPassword()) {
+                  <span class="btn-spinner"></span>
+                  Cambiando...
+                } @else {
+                  <span class="material-icons-outlined">vpn_key</span>
+                  Cambiar Contraseña
+                }
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Delete Account Section -->
+        <section class="form-section danger-section">
+          <h2 class="section-title danger-title">
+            <span class="material-icons-outlined">warning</span>
+            Zona de Peligro
+          </h2>
+          <p class="section-description">
+            Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate de que esto es lo que quieres.
+          </p>
+
+          @if (!showDeleteConfirm()) {
+            <button 
+              type="button" 
+              class="btn btn-danger-outline"
+              (click)="showDeleteConfirm.set(true)"
+            >
+              <span class="material-icons-outlined">delete_forever</span>
+              Eliminar mi cuenta
+            </button>
+          } @else {
+            <div class="delete-confirm-box">
+              <p class="delete-warning">
+                <span class="material-icons-outlined">error</span>
+                <strong>¿Estás absolutamente seguro?</strong>
+              </p>
+              <p class="delete-info">
+                Esta acción eliminará permanentemente tu cuenta, incluyendo:
+              </p>
+              <ul class="delete-list">
+                <li>Todas tus recetas publicadas</li>
+                <li>Tus reseñas y comentarios</li>
+                <li>Tu lista de favoritos</li>
+                <li>Tu perfil y configuración</li>
+              </ul>
+
+              <form [formGroup]="deleteForm" (ngSubmit)="onDeleteAccount()">
+                <div class="form-group">
+                  <label for="deletePassword" class="input-label">
+                    Confirma tu contraseña para eliminar la cuenta
+                  </label>
+                  <input
+                    type="password"
+                    id="deletePassword"
+                    formControlName="password"
+                    class="input"
+                    placeholder="Tu contraseña"
+                  />
+                </div>
+
+                @if (deleteError()) {
+                  <div class="alert alert-error">
+                    <span class="material-icons-outlined">error_outline</span>
+                    {{ deleteError() }}
+                  </div>
+                }
+
+                <div class="delete-actions">
+                  <button 
+                    type="button" 
+                    class="btn btn-outline"
+                    (click)="showDeleteConfirm.set(false); deleteForm.reset()"
+                  >
+                    Cancelar
+                  </button>
+                  <button 
+                    type="submit" 
+                    class="btn btn-danger"
+                    [disabled]="deletingAccount() || deleteForm.invalid"
+                  >
+                    @if (deletingAccount()) {
+                      <span class="btn-spinner"></span>
+                      Eliminando...
+                    } @else {
+                      <span class="material-icons-outlined">delete_forever</span>
+                      Eliminar cuenta permanentemente
+                    }
+                  </button>
+                </div>
+              </form>
+            </div>
+          }
+        </section>
       }
     </div>
   `,
@@ -452,6 +629,128 @@ import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/load
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    .security-section {
+      margin-top: var(--space-8);
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+
+        .material-icons-outlined {
+          font-size: 22px;
+          color: var(--color-primary-500);
+        }
+      }
+    }
+
+    .form-actions-left {
+      justify-content: flex-start;
+      border-top: none;
+      padding-top: var(--space-4);
+    }
+
+    .danger-section {
+      border-color: var(--color-error-light);
+      background: rgba(239, 68, 68, 0.02);
+    }
+
+    .danger-title {
+      color: var(--color-error);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+
+      .material-icons-outlined {
+        font-size: 22px;
+      }
+    }
+
+    .btn-danger-outline {
+      background: transparent;
+      border: 1px solid var(--color-error);
+      color: var(--color-error);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--border-radius-sm);
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      transition: all var(--duration-fast) var(--ease-default);
+
+      &:hover {
+        background: var(--color-error);
+        color: white;
+      }
+    }
+
+    .btn-danger {
+      background: var(--color-error);
+      border: none;
+      color: white;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--border-radius-sm);
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      transition: all var(--duration-fast) var(--ease-default);
+
+      &:hover {
+        background: #dc2626;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    .delete-confirm-box {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid var(--color-error-light);
+      border-radius: var(--border-radius-md);
+      padding: var(--space-6);
+      margin-top: var(--space-4);
+    }
+
+    .delete-warning {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-error);
+      margin-bottom: var(--space-3);
+
+      .material-icons-outlined {
+        font-size: 20px;
+      }
+    }
+
+    .delete-info {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: var(--space-2);
+    }
+
+    .delete-list {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: var(--space-4);
+      padding-left: var(--space-6);
+
+      li {
+        margin-bottom: var(--space-1);
+      }
+    }
+
+    .delete-actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
   `],
 })
 export class ProfileEditComponent implements OnInit {
@@ -461,15 +760,27 @@ export class ProfileEditComponent implements OnInit {
   private userService = inject(UserService);
 
   profileForm!: FormGroup;
+  passwordForm!: FormGroup;
+  deleteForm!: FormGroup;
+  
   currentUser = this.authService.currentUser;
   loading = signal(true);
   saving = signal(false);
+  changingPassword = signal(false);
+  deletingAccount = signal(false);
+  showDeleteConfirm = signal(false);
+  
   errorMessage = signal('');
   successMessage = signal('');
+  passwordError = signal('');
+  passwordSuccess = signal('');
+  deleteError = signal('');
   avatarPreview = signal<string | null>(null);
 
   ngOnInit(): void {
     this.initForm();
+    this.initPasswordForm();
+    this.initDeleteForm();
     this.loadProfile();
   }
 
@@ -485,6 +796,28 @@ export class ProfileEditComponent implements OnInit {
       emailNotifications: [true],
       publicProfile: [true],
     });
+  }
+
+  initPasswordForm(): void {
+    this.passwordForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+    }, {
+      validators: this.passwordMatchValidator
+    });
+  }
+
+  initDeleteForm(): void {
+    this.deleteForm = this.fb.group({
+      password: ['', Validators.required],
+    });
+  }
+
+  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const newPassword = group.get('newPassword')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return newPassword === confirmPassword ? null : { passwordMismatch: true };
   }
 
   loadProfile(): void {
@@ -514,6 +847,14 @@ export class ProfileEditComponent implements OnInit {
 
   isFieldInvalid(field: string): boolean {
     const control = this.profileForm.get(field);
+    return !!(control?.invalid && control?.touched);
+  }
+
+  isPasswordFieldInvalid(field: string): boolean {
+    const control = this.passwordForm.get(field);
+    if (field === 'confirmPassword') {
+      return !!(control?.touched && (control?.invalid || this.passwordForm.hasError('passwordMismatch')));
+    }
     return !!(control?.invalid && control?.touched);
   }
 
@@ -556,6 +897,60 @@ export class ProfileEditComponent implements OnInit {
       error: (error) => {
         this.saving.set(false);
         this.errorMessage.set(error.error?.message || 'Error al actualizar el perfil');
+      },
+    });
+  }
+
+  onChangePassword(): void {
+    if (this.passwordForm.invalid) {
+      this.passwordForm.markAllAsTouched();
+      return;
+    }
+
+    this.changingPassword.set(true);
+    this.passwordError.set('');
+    this.passwordSuccess.set('');
+
+    const formValue = this.passwordForm.value;
+
+    this.userService.changePassword({
+      currentPassword: formValue.currentPassword,
+      newPassword: formValue.newPassword,
+      confirmPassword: formValue.confirmPassword,
+    }).subscribe({
+      next: () => {
+        this.changingPassword.set(false);
+        this.passwordSuccess.set('¡Contraseña actualizada correctamente!');
+        this.passwordForm.reset();
+      },
+      error: (error) => {
+        this.changingPassword.set(false);
+        this.passwordError.set(error.error?.message || 'Error al cambiar la contraseña');
+      },
+    });
+  }
+
+  onDeleteAccount(): void {
+    if (this.deleteForm.invalid) {
+      return;
+    }
+
+    this.deletingAccount.set(true);
+    this.deleteError.set('');
+
+    this.userService.deleteAccount({
+      password: this.deleteForm.value.password,
+    }).subscribe({
+      next: () => {
+        this.deletingAccount.set(false);
+        this.authService.logout();
+        this.router.navigate(['/'], {
+          queryParams: { deleted: 'true' }
+        });
+      },
+      error: (error) => {
+        this.deletingAccount.set(false);
+        this.deleteError.set(error.error?.message || 'Error al eliminar la cuenta');
       },
     });
   }

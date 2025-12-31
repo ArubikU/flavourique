@@ -38,4 +38,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     
     @Query("SELECT COUNT(r) FROM Recipe r JOIN r.categories c WHERE c.id = :categoryId AND r.isPublic = true")
     Long countByCategoryId(@Param("categoryId") Long categoryId);
+    
+    void deleteAllByAuthorId(Long authorId);
 }

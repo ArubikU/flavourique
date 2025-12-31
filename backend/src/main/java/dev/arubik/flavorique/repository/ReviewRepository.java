@@ -21,4 +21,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Double getAverageRatingByRecipeId(@Param("recipeId") Long recipeId);
     
     Long countByRecipeId(Long recipeId);
+    
+    void deleteAllByUserId(Long userId);
 }
