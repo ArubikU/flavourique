@@ -1,14 +1,15 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService, UserService } from '@core/services';
+import { AuthService, UserService, UploadService } from '@core/services';
 import { User } from '@core/models';
 import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/loading-spinner.component';
+import { ImageUploadComponent } from '@shared/components/image-upload/image-upload.component';
 
 @Component({
   selector: 'app-profile-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LoadingSpinnerComponent],
+  imports: [ReactiveFormsModule, RouterLink, LoadingSpinnerComponent, ImageUploadComponent],
   template: `
     <div class="page-header">
       <div class="container container-readable">
@@ -24,29 +25,18 @@ import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/load
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
           <!-- Avatar Section -->
           <section class="form-section avatar-section">
-            <div class="avatar-wrapper">
-              @if (avatarPreview()) {
-                <img [src]="avatarPreview()" alt="Avatar" class="avatar" />
-              } @else {
-                <div class="avatar avatar-placeholder">
-                  {{ currentUser()?.displayName?.charAt(0)?.toUpperCase() || 'U' }}
-                </div>
-              }
-            </div>
-            
-            <div class="avatar-actions">
-              <div class="form-group">
-                <label for="avatarUrl" class="input-label">URL del Avatar</label>
-                <input
-                  type="url"
-                  id="avatarUrl"
-                  formControlName="avatarUrl"
-                  class="input"
-                  placeholder="https://ejemplo.com/avatar.jpg"
-                  (input)="updateAvatarPreview()"
-                />
-                <span class="input-helper">Usa una URL de imagen pública</span>
-              </div>
+            <h2 class="section-title">Foto de Perfil</h2>
+            <div class="avatar-upload-wrapper">
+              <app-image-upload
+                type="avatar"
+                [currentUrl]="avatarPreview"
+                placeholder="Subir foto de perfil"
+                urlPlaceholder="https://ejemplo.com/avatar.jpg"
+                altText="Avatar"
+                (imageUploaded)="onAvatarUploaded($event)"
+                (imageRemoved)="onAvatarRemoved()"
+                (urlChanged)="onAvatarUrlChanged($event)"
+              />
             </div>
           </section>
 
@@ -452,43 +442,12 @@ import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/load
     }
 
     .avatar-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-6);
       text-align: center;
-
-      @media (min-width: 640px) {
-        flex-direction: row;
-        text-align: left;
-      }
     }
 
-    .avatar-wrapper {
-      flex-shrink: 0;
-    }
-
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: var(--border-radius-full);
-      object-fit: cover;
-      border: 3px solid var(--border-default);
-    }
-
-    .avatar-placeholder {
-      background: var(--color-primary-100);
-      color: var(--color-primary-600);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      font-weight: 700;
-    }
-
-    .avatar-actions {
-      flex: 1;
-      width: 100%;
+    .avatar-upload-wrapper {
+      max-width: 300px;
+      margin: var(--space-4) auto 0;
     }
 
     .form-group {
@@ -758,6 +717,7 @@ export class ProfileEditComponent implements OnInit {
   private router = inject(Router);
   private authService = inject(AuthService);
   private userService = inject(UserService);
+  uploadService = inject(UploadService);
 
   profileForm!: FormGroup;
   passwordForm!: FormGroup;
@@ -861,6 +821,21 @@ export class ProfileEditComponent implements OnInit {
   updateAvatarPreview(): void {
     const url = this.profileForm.get('avatarUrl')?.value;
     this.avatarPreview.set(url || null);
+  }
+
+  onAvatarUploaded(url: string): void {
+    this.avatarPreview.set(url);
+    this.profileForm.patchValue({ avatarUrl: url });
+  }
+
+  onAvatarRemoved(): void {
+    this.avatarPreview.set(null);
+    this.profileForm.patchValue({ avatarUrl: '' });
+  }
+
+  onAvatarUrlChanged(url: string): void {
+    this.avatarPreview.set(url);
+    this.profileForm.patchValue({ avatarUrl: url });
   }
 
   onSubmit(): void {

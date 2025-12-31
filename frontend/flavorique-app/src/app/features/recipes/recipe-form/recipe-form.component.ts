@@ -1,14 +1,15 @@
 import { Component, inject, signal, OnInit, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RecipeService, CategoryService, AuthService } from '@core/services';
+import { RecipeService, CategoryService, AuthService, UploadService } from '@core/services';
 import { Recipe, Category, Difficulty, RecipeRequest } from '@core/models';
 import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/loading-spinner.component';
+import { ImageUploadComponent } from '@shared/components/image-upload/image-upload.component';
 
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LoadingSpinnerComponent],
+  imports: [ReactiveFormsModule, RouterLink, LoadingSpinnerComponent, ImageUploadComponent],
   template: `
     <div class="page-header">
       <div class="container container-readable">
@@ -110,17 +111,21 @@ import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/load
                   <option value="HARD">Difícil</option>
                 </select>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="imageUrl" class="input-label">URL de Imagen</label>
-                <input
-                  type="url"
-                  id="imageUrl"
-                  formControlName="imageUrl"
-                  class="input"
-                  placeholder="https://ejemplo.com/imagen.jpg"
-                />
-              </div>
+            <!-- Recipe Image Upload -->
+            <div class="form-group">
+              <label class="input-label">Imagen de la Receta</label>
+              <app-image-upload
+                type="recipe-image"
+                [currentUrl]="recipeImageUrl"
+                placeholder="Subir imagen de la receta"
+                urlPlaceholder="https://ejemplo.com/imagen.jpg"
+                altText="Imagen de la receta"
+                (imageUploaded)="onRecipeImageUploaded($event)"
+                (imageRemoved)="onRecipeImageRemoved()"
+                (urlChanged)="onRecipeImageUrlChanged($event)"
+              />
             </div>
 
             <div class="form-group">
@@ -528,6 +533,7 @@ export class RecipeFormComponent implements OnInit {
   private recipeService = inject(RecipeService);
   private categoryService = inject(CategoryService);
   private authService = inject(AuthService);
+  uploadService = inject(UploadService);
 
   recipeForm!: FormGroup;
   categories = signal<Category[]>([]);
@@ -535,6 +541,7 @@ export class RecipeFormComponent implements OnInit {
   tags = signal<string[]>([]);
   saving = signal(false);
   loadingRecipe = signal(false);
+  recipeImageUrl = signal<string | null>(null);
 
   get isEditMode(): boolean {
     return !!this.id;
@@ -622,6 +629,9 @@ export class RecipeFormComponent implements OnInit {
       isPublic: recipe.isPublic,
     });
 
+    // Set recipe image URL for the upload component
+    this.recipeImageUrl.set(recipe.imageUrl || null);
+
     // Populate ingredients
     this.ingredientsArray.clear();
     recipe.ingredients.forEach((ing) => {
@@ -705,6 +715,21 @@ export class RecipeFormComponent implements OnInit {
 
   removeTag(tag: string): void {
     this.tags.update(tags => tags.filter(t => t !== tag));
+  }
+
+  onRecipeImageUploaded(url: string): void {
+    this.recipeImageUrl.set(url);
+    this.recipeForm.patchValue({ imageUrl: url });
+  }
+
+  onRecipeImageRemoved(): void {
+    this.recipeImageUrl.set(null);
+    this.recipeForm.patchValue({ imageUrl: '' });
+  }
+
+  onRecipeImageUrlChanged(url: string): void {
+    this.recipeImageUrl.set(url);
+    this.recipeForm.patchValue({ imageUrl: url });
   }
 
   onSubmit(): void {

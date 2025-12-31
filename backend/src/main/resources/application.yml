@@ -57,6 +57,15 @@ management:
     health:
       show-details: when-authorized
 
+# Backblaze B2 Storage Configuration
+storage:
+  enabled: false
+  endpoint: ${B2_ENDPOINT:https://s3.us-east-005.backblazeb2.com}
+  region: ${B2_REGION:us-east-005}
+  bucket: ${B2_BUCKET:blob-etc}
+  access-key: ${B2_ACCESS_KEY:}
+  secret-key: ${B2_SECRET_KEY:}
+
 ---
 spring:
   config:
@@ -133,3 +142,7 @@ logging:
   level:
     dev.arubik.flavorique: INFO
     org.springframework.security: WARN
+
+# Enable storage in production
+storage:
+  enabled: true

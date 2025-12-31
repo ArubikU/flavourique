@@ -83,6 +83,8 @@ public class SecurityConfig {
                 .requestMatchers("/actuator/**", "/actuator/health/**").permitAll()
                 .requestMatchers("/recipes/**", "/categories/**", "/tags/**", "/users/**").permitAll()
                 .requestMatchers("/recipes", "/categories", "/tags", "/users").permitAll()
+                .requestMatchers("/upload/status").permitAll()
+                .requestMatchers("/blob/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

@@ -210,6 +210,11 @@ La aplicación estará disponible en:
 | `DATABASE_USERNAME` | Usuario |
 | `DATABASE_PASSWORD` | Contraseña |
 | `JWT_SECRET` | Clave secreta para JWT |
+| `B2_ENDPOINT` | Endpoint de Backblaze B2 (ej: https://s3.us-east-005.backblazeb2.com) |
+| `B2_REGION` | Región del bucket (ej: us-east-005) |
+| `B2_BUCKET` | Nombre del bucket |
+| `B2_ACCESS_KEY` | Key ID de la aplicación B2 |
+| `B2_SECRET_KEY` | Application Key de B2 |
 
 ---
 
@@ -274,7 +279,7 @@ ng e2e
 - [x] PWA Support
 - [x] Tema claro/oscuro
 - [x] Despliegue en producción
-- [ ] Subida de imágenes (Cloudinary)
+- [x] Subida de imágenes (Backblaze B2)
 - [ ] Notificaciones en tiempo real
 - [ ] Sistema de seguimiento de usuarios
 - [ ] API de nutrición integrada
