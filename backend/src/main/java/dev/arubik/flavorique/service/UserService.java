@@ -68,7 +68,7 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", currentUser.getId()));
 
         // Verify current password
-        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash())) {
             throw new BadRequestException("Current password is incorrect");
         }
 
@@ -78,11 +78,11 @@ public class UserService {
         }
 
         // Verify new password is different from current
-        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
+        if (passwordEncoder.matches(request.getNewPassword(), user.getPasswordHash())) {
             throw new BadRequestException("New password must be different from current password");
         }
 
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
     }
 
@@ -92,7 +92,7 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", currentUser.getId()));
 
         // Verify password
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw new BadRequestException("Password is incorrect");
         }
 
