@@ -17,7 +17,7 @@ FROM node:20-alpine AS frontend-build
 WORKDIR /app/frontend
 
 COPY frontend/flavorique-app/package.json frontend/flavorique-app/bun.lock* ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY frontend/flavorique-app/ .
 RUN npm run build -- --configuration=production
