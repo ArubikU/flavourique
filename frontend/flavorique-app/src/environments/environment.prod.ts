@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.flavorique.app',
+  apiUrl: '/api',
   appName: 'Flavorique',
 };

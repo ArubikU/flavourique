@@ -162,15 +162,39 @@ npm install
 ng serve
 ```
 
-4. **Con Docker**
+4. **Con Docker (Recomendado para producción)**
 ```bash
+# Iniciar todos los servicios (database, backend, frontend)
+docker-compose up -d
+
+# Iniciar con herramientas de desarrollo (incluye Adminer)
+docker-compose --profile dev up -d
+
+# Ver logs
+docker-compose logs -f
+
+# Detener servicios
+docker-compose down
+
+# Reconstruir imágenes
+docker-compose build --no-cache
 docker-compose up -d
 ```
 
 La aplicación estará disponible en:
 - Frontend: `http://localhost:4200`
-- Backend API: `http://localhost:8080`
-- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- Backend API: `http://localhost:8080/api`
+- Swagger UI: `http://localhost:8080/api/swagger-ui.html`
+- Adminer (solo con --profile dev): `http://localhost:8081`
+
+### Servicios Docker
+
+| Servicio | Puerto | Descripción |
+|----------|--------|-------------|
+| `db` | 5432 | PostgreSQL 15 |
+| `backend` | 8080 | Spring Boot API |
+| `frontend` | 4200 | Angular (Nginx) |
+| `adminer` | 8081 | DB Admin (dev only) |
 
 ---
 

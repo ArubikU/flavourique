@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Base de datos PostgreSQL
+  # PostgreSQL Database
   db:
     image: postgres:15-alpine
     container_name: flavorique-db
@@ -20,8 +20,54 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - flavorique-network
 
-  # Adminer - GUI para gestionar la base de datos (opcional)
+  # Spring Boot Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: flavorique-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/flavorique
+      SPRING_DATASOURCE_USERNAME: flavorique_user
+      SPRING_DATASOURCE_PASSWORD: flavorique_secret
+      JWT_SECRET: flavorique-super-secret-key-for-jwt-token-generation-minimum-256-bits-production
+      ADMIN_USERNAME: Arubik
+      ADMIN_EMAIL: arubik4u@gmail.com
+      ADMIN_PASSWORD: Admin123!
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    networks:
+      - flavorique-network
+
+  # Angular Frontend
+  frontend:
+    build:
+      context: ./frontend/flavorique-app
+      dockerfile: Dockerfile
+    container_name: flavorique-frontend
+    restart: unless-stopped
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - flavorique-network
+
+  # Adminer - Database GUI (optional, for development)
   adminer:
     image: adminer:latest
     container_name: flavorique-adminer
@@ -32,6 +78,15 @@ services:
       - db
     environment:
       ADMINER_DEFAULT_SERVER: db
+    networks:
+      - flavorique-network
+    profiles:
+      - dev
+
+networks:
+  flavorique-network:
+    driver: bridge
+    name: flavorique-network
 
 volumes:
   postgres_data:
