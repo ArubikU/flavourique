@@ -111,7 +111,6 @@ public class RecipeService {
 
         recipe.setTitle(request.getTitle());
         recipe.setDescription(request.getDescription());
-        recipe.setInstructions(request.getInstructions());
         recipe.setPrepTime(request.getPrepTime());
         recipe.setCookTime(request.getCookTime());
         recipe.setServings(request.getServings());
@@ -171,6 +170,21 @@ public class RecipeService {
     @Transactional(readOnly = true)
     public Page<RecipeDto> searchRecipes(String query, Pageable pageable) {
         return recipeRepository.searchRecipes(query, pageable)
+                .map(this::enrichRecipeDto);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<RecipeDto> searchRecipesWithFilters(String query, String difficulty, Long categoryId, Pageable pageable) {
+        Difficulty difficultyEnum = null;
+        if (difficulty != null && !difficulty.isEmpty()) {
+            try {
+                difficultyEnum = Difficulty.valueOf(difficulty.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                // Invalid difficulty, ignore filter
+            }
+        }
+        
+        return recipeRepository.searchRecipesWithFilters(query, difficultyEnum, categoryId, pageable)
                 .map(this::enrichRecipeDto);
     }
 

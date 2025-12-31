@@ -1,5 +1,6 @@
 package dev.arubik.flavorique.controller;
 
+import dev.arubik.flavorique.dto.RecipeDto;
 import dev.arubik.flavorique.security.UserPrincipal;
 import dev.arubik.flavorique.service.FavoriteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/favorites")
 @RequiredArgsConstructor
@@ -16,6 +19,13 @@ import org.springframework.web.bind.annotation.*;
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
+
+    @GetMapping("/me")
+    @Operation(summary = "Get current user's favorite recipes")
+    public ResponseEntity<List<RecipeDto>> getUserFavorites(
+            @AuthenticationPrincipal UserPrincipal currentUser) {
+        return ResponseEntity.ok(favoriteService.getUserFavorites(currentUser));
+    }
 
     @PostMapping("/recipes/{recipeId}")
     @Operation(summary = "Toggle favorite for a recipe")

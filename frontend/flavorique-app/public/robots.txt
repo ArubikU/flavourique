@@ -1,0 +1,25 @@
+# Robots.txt for Flavorique
+# https://flavorique.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://flavorique.com/sitemap.xml
+
+# Disallow admin and auth paths
+Disallow: /auth/
+Disallow: /profile/edit
+Disallow: /api/
+
+# Allow search engines to crawl main content
+Allow: /recipes
+Allow: /categories
+Allow: /search
+Allow: /terms
+Allow: /privacy
+Allow: /cookies
+Allow: /contact
+
+# Crawl-delay (optional, be nice to servers)
+Crawl-delay: 1

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Safari pinned tab - monochrome -->
+  <g fill="#000000">
+    <!-- Main F shape -->
+    <rect x="160" y="120" width="50" height="272" rx="8"/>
+    <rect x="160" y="120" width="192" height="50" rx="8"/>
+    <rect x="160" y="220" width="140" height="45" rx="8"/>
+    <!-- Steam/flavor lines -->
+    <ellipse cx="380" cy="160" rx="20" ry="35" opacity="0.8"/>
+    <ellipse cx="340" cy="140" rx="15" ry="28" opacity="0.6"/>
+  </g>
+</svg>

@@ -70,6 +70,13 @@ spring:
       enabled: true
       path: /h2-console
 
+# Admin user configuration (can be overridden by environment variables)
+app:
+  admin:
+    username: ${ADMIN_USERNAME:Arubik}
+    email: ${ADMIN_EMAIL:arubik4u@gmail.com}
+    password: ${ADMIN_PASSWORD:Admin}
+
 ---
 spring:
   config:

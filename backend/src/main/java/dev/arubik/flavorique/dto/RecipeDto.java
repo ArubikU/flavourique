@@ -17,7 +17,6 @@ public class RecipeDto {
     private UserDto author;
     private String title;
     private String description;
-    private String instructions;
     private Integer prepTime;
     private Integer cookTime;
     private Integer servings;

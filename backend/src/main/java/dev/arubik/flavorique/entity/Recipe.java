@@ -3,6 +3,7 @@ package dev.arubik.flavorique.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"author", "ingredients", "steps", "categories", "tags", "favorites", "reviews"})
 public class Recipe {
 
     @Id
@@ -31,9 +33,6 @@ public class Recipe {
 
     @Column(columnDefinition = "TEXT")
     private String description;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String instructions;
 
     @Column(name = "prep_time")
     private Integer prepTime;

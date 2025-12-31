@@ -24,7 +24,6 @@ public class RecipeMapper {
         dto.setAuthor(userMapper.toDto(recipe.getAuthor()));
         dto.setTitle(recipe.getTitle());
         dto.setDescription(recipe.getDescription());
-        dto.setInstructions(recipe.getInstructions());
         dto.setPrepTime(recipe.getPrepTime());
         dto.setCookTime(recipe.getCookTime());
         dto.setServings(recipe.getServings());
@@ -66,7 +65,6 @@ public class RecipeMapper {
         recipe.setAuthor(author);
         recipe.setTitle(request.getTitle());
         recipe.setDescription(request.getDescription());
-        recipe.setInstructions(request.getInstructions());
         recipe.setPrepTime(request.getPrepTime());
         recipe.setCookTime(request.getCookTime());
         recipe.setServings(request.getServings());

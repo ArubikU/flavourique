@@ -4,6 +4,7 @@ import dev.arubik.flavorique.dto.CategoryDto;
 import dev.arubik.flavorique.entity.Category;
 import dev.arubik.flavorique.exception.ResourceNotFoundException;
 import dev.arubik.flavorique.repository.CategoryRepository;
+import dev.arubik.flavorique.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final RecipeRepository recipeRepository;
 
     @Transactional(readOnly = true)
     public List<CategoryDto> getAllCategories() {
@@ -38,6 +40,7 @@ public class CategoryService {
         dto.setSlug(category.getSlug());
         dto.setDescription(category.getDescription());
         dto.setIcon(category.getIcon());
+        dto.setRecipeCount(recipeRepository.countByCategoryId(category.getId()));
         return dto;
     }
 }

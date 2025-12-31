@@ -31,7 +31,6 @@ CREATE TABLE recipes (
     author_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title VARCHAR(200) NOT NULL,
     description TEXT,
-    instructions TEXT NOT NULL,
     prep_time INTEGER CHECK (prep_time >= 0),
     cook_time INTEGER CHECK (cook_time >= 0),
     servings INTEGER CHECK (servings > 0),
@@ -205,38 +204,5 @@ CREATE TRIGGER update_reviews_updated_at
     BEFORE UPDATE ON reviews
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
--- ============================================
--- DATOS INICIALES: Categorías
--- ============================================
-INSERT INTO categories (name, slug, description, icon) VALUES
-    ('Desayunos', 'desayunos', 'Recetas para comenzar el día', '🍳'),
-    ('Almuerzos', 'almuerzos', 'Platos principales para el mediodía', '🍽️'),
-    ('Cenas', 'cenas', 'Recetas para la noche', '🌙'),
-    ('Postres', 'postres', 'Dulces y repostería', '🍰'),
-    ('Bebidas', 'bebidas', 'Jugos, batidos y cócteles', '🥤'),
-    ('Sopas', 'sopas', 'Caldos y cremas', '🍲'),
-    ('Ensaladas', 'ensaladas', 'Platos frescos y ligeros', '🥗'),
-    ('Aperitivos', 'aperitivos', 'Snacks y entradas', '🍿'),
-    ('Parrilla', 'parrilla', 'Asados y barbacoa', '🔥'),
-    ('Pasta', 'pasta', 'Recetas con pasta italiana', '🍝'),
-    ('Mariscos', 'mariscos', 'Pescados y frutos del mar', '🦐'),
-    ('Vegetariano', 'vegetariano', 'Sin carne', '🥬');
-
--- ============================================
--- DATOS INICIALES: Tags populares
--- ============================================
-INSERT INTO tags (name, slug) VALUES
-    ('sin-gluten', 'sin-gluten'),
-    ('vegano', 'vegano'),
-    ('keto', 'keto'),
-    ('rápido', 'rapido'),
-    ('económico', 'economico'),
-    ('saludable', 'saludable'),
-    ('tradicional', 'tradicional'),
-    ('gourmet', 'gourmet'),
-    ('fácil', 'facil'),
-    ('sin-lactosa', 'sin-lactosa'),
-    ('alto-proteína', 'alto-proteina'),
-    ('bajo-carbohidratos', 'bajo-carbohidratos');
 
 RAISE NOTICE 'Base de datos Flavorique inicializada correctamente ✅';

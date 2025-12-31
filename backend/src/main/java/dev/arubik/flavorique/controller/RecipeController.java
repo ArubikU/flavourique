@@ -69,11 +69,13 @@ public class RecipeController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search recipes")
+    @Operation(summary = "Search recipes with filters")
     public ResponseEntity<Page<RecipeDto>> searchRecipes(
-            @RequestParam String q,
+            @RequestParam(required = false) String q,
+            @RequestParam(required = false) String difficulty,
+            @RequestParam(required = false) Long categoryId,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<RecipeDto> recipes = recipeService.searchRecipes(q, pageable);
+        Page<RecipeDto> recipes = recipeService.searchRecipesWithFilters(q, difficulty, categoryId, pageable);
         return ResponseEntity.ok(recipes);
     }
 

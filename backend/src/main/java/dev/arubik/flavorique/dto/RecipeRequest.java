@@ -20,9 +20,6 @@ public class RecipeRequest {
 
     private String description;
 
-    @NotBlank(message = "Instructions are required")
-    private String instructions;
-
     private Integer prepTime;
     private Integer cookTime;
     private Integer servings;
