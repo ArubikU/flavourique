@@ -111,9 +111,9 @@ spring:
       on-profile: docker
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db:5432/flavorique}
-    username: ${SPRING_DATASOURCE_USERNAME:flavorique_user}
-    password: ${SPRING_DATASOURCE_PASSWORD:flavorique_secret}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/flavorique}
+    username: ${DATABASE_USERNAME:flavorique_user}
+    password: ${DATABASE_PASSWORD:flavorique_secret}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -125,6 +125,39 @@ spring:
 
 jwt:
   secret: ${JWT_SECRET:flavorique-super-secret-key-for-jwt-token-generation-minimum-256-bits}
+
+app:
+  admin:
+    username: ${ADMIN_USERNAME:Arubik}
+    email: ${ADMIN_EMAIL:arubik4u@gmail.com}
+    password: ${ADMIN_PASSWORD:Admin123!}
+
+logging:
+  level:
+    dev.arubik.flavorique: INFO
+    org.springframework.security: WARN
+
+---
+spring:
+  config:
+    activate:
+      on-profile: render
+
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    username: ${DATABASE_USERNAME:${PGUSER}}
+    password: ${DATABASE_PASSWORD:${PGPASSWORD}}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: ${JWT_SECRET}
 
 app:
   admin:
