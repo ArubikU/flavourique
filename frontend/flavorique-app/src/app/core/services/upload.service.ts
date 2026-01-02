@@ -30,20 +30,24 @@ export class UploadService {
   private readonly apiUrl = `${environment.apiUrl}/upload`;
   private http = inject(HttpClient);
 
-  isEnabled = signal<boolean | null>(null);
+  isEnabled = signal<boolean>(false);
+  isLoading = signal<boolean>(true);
 
   constructor() {
-    this.checkUploadStatus();
+    this.checkUploadStatus().subscribe();
   }
 
   checkUploadStatus(): Observable<UploadStatus> {
+    this.isLoading.set(true);
     return this.http.get<UploadStatus>(`${this.apiUrl}/status`).pipe(
       map((status) => {
         this.isEnabled.set(status.enabled);
+        this.isLoading.set(false);
         return status;
       }),
       catchError(() => {
         this.isEnabled.set(false);
+        this.isLoading.set(false);
         return of({ enabled: false, message: 'Upload service unavailable' });
       })
     );

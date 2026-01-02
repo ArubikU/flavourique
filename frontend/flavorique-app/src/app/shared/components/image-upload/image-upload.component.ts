@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal, inject, ViewChild, ElementRef } from '@angular/core';
 import { UploadService, UploadProgress } from '@core/services';
 
 export type ImageUploadType = 'recipe-image' | 'step-image' | 'avatar';
@@ -16,11 +16,22 @@ export type ImageUploadType = 'recipe-image' | 'step-image' | 'avatar';
             <span class="material-icons-outlined">edit</span>
             <span>Cambiar imagen</span>
           </div>
+        } @else if (uploadService.isLoading()) {
+          <div class="upload-placeholder">
+            <span class="material-icons-outlined placeholder-icon rotating">sync</span>
+            <span class="placeholder-text">Verificando servicio...</span>
+          </div>
         } @else {
           <div class="upload-placeholder">
             <span class="material-icons-outlined placeholder-icon">add_photo_alternate</span>
             <span class="placeholder-text">{{ placeholder }}</span>
-            <span class="placeholder-hint">JPEG, PNG, GIF, WebP (máx. 5MB)</span>
+            <span class="placeholder-hint">
+              @if (uploadService.isEnabled()) {
+                JPEG, PNG, GIF, WebP (máx. 5MB)
+              } @else {
+                Ingresa una URL de imagen
+              }
+            </span>
           </div>
         }
 
@@ -40,12 +51,12 @@ export type ImageUploadType = 'recipe-image' | 'step-image' | 'avatar';
         type="file"
         accept="image/jpeg,image/png,image/gif,image/webp"
         (change)="onFileSelected($event)"
-        [disabled]="uploading() || !uploadService.isEnabled()"
-        hidden
+        [disabled]="uploading()"
+        style="display: none;"
       />
 
       <!-- URL input fallback -->
-      @if (!uploadService.isEnabled()) {
+      @if (!uploadService.isEnabled() && !uploadService.isLoading()) {
         <div class="url-fallback">
           <label class="input-label">URL de la imagen</label>
           <input
@@ -161,6 +172,15 @@ export type ImageUploadType = 'recipe-image' | 'step-image' | 'avatar';
       color: var(--text-secondary);
     }
 
+    .placeholder-icon.rotating {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     .placeholder-text {
       font-size: 14px;
       font-weight: 500;
@@ -255,16 +275,19 @@ export class ImageUploadComponent {
 
   uploadService = inject(UploadService);
 
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   uploading = signal(false);
   progress = signal(0);
   error = signal<string | null>(null);
 
-  private fileInputElement: HTMLInputElement | null = null;
-
   triggerFileInput(): void {
-    const input = document.querySelector('input[type="file"]') as HTMLInputElement;
-    if (input && this.uploadService.isEnabled()) {
-      input.click();
+    if (!this.uploadService.isEnabled()) {
+      // Si el upload no está habilitado, el usuario usará el campo de URL
+      return;
+    }
+    if (this.fileInput?.nativeElement) {
+      this.fileInput.nativeElement.click();
     }
   }
 
