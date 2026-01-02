@@ -45,7 +45,11 @@ public class StorageService {
     private String contextPath;
 
     public boolean isEnabled() {
-        return storageProperties.isEnabled() && s3Client != null;
+        boolean enabled = storageProperties.isEnabled() && s3Client != null;
+        if (storageProperties.isEnabled() && s3Client == null) {
+            log.debug("Storage is configured as enabled but S3 client is not available (missing credentials?)");
+        }
+        return enabled;
     }
 
     public UploadResponse uploadFile(MultipartFile file, String folder) throws IOException {
