@@ -51,9 +51,9 @@ RUN mkdir -p /var/log/supervisor /run/nginx && \
 # Expose ports
 EXPOSE 80
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=3 \
-  CMD curl -f http://localhost/api/actuator/health || exit 1
+# Health check - use nginx endpoint that doesn't depend on backend
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD curl -f http://localhost/health || exit 1
 
 # Start supervisor (manages both nginx and java)
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
