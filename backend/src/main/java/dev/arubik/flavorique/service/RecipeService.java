@@ -114,16 +114,16 @@ public class RecipeService {
         recipe.setPrepTime(request.getPrepTime());
         recipe.setCookTime(request.getCookTime());
         recipe.setServings(request.getServings());
-        
+
         if (request.getDifficulty() != null) {
             recipe.setDifficulty(Difficulty.valueOf(request.getDifficulty()));
         }
-        
+
         recipe.setImageUrl(request.getImageUrl());
         recipe.setIsPublic(request.getIsPublic());
 
         final Recipe finalRecipe = recipe;
-        
+
         recipe.getIngredients().clear();
         if (request.getIngredients() != null) {
             request.getIngredients().forEach(ingredientDto -> {
@@ -174,7 +174,8 @@ public class RecipeService {
     }
 
     @Transactional(readOnly = true)
-    public Page<RecipeDto> searchRecipesWithFilters(String query, String difficulty, Long categoryId, Pageable pageable) {
+    public Page<RecipeDto> searchRecipesWithFilters(String query, String difficulty, Long categoryId, String tag,
+            Pageable pageable) {
         Difficulty difficultyEnum = null;
         if (difficulty != null && !difficulty.isEmpty()) {
             try {
@@ -183,8 +184,8 @@ public class RecipeService {
                 // Invalid difficulty, ignore filter
             }
         }
-        
-        return recipeRepository.searchRecipesWithFilters(query, difficultyEnum, categoryId, pageable)
+
+        return recipeRepository.searchRecipesWithFilters(query, difficultyEnum, categoryId, tag, pageable)
                 .map(this::enrichRecipeDto);
     }
 

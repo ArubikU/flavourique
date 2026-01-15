@@ -23,14 +23,17 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     
     @Query("SELECT DISTINCT r FROM Recipe r " +
            "LEFT JOIN r.categories c " +
+           "LEFT JOIN r.tags t " +
            "WHERE r.isPublic = true " +
            "AND (:query IS NULL OR LOWER(r.title) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(r.description) LIKE LOWER(CONCAT('%', :query, '%'))) " +
            "AND (:difficulty IS NULL OR r.difficulty = :difficulty) " +
-           "AND (:categoryId IS NULL OR c.id = :categoryId)")
+           "AND (:categoryId IS NULL OR c.id = :categoryId) " +
+           "AND (:tag IS NULL OR LOWER(t.name) LIKE LOWER(CONCAT('%', :tag, '%')) OR LOWER(t.slug) LIKE LOWER(CONCAT('%', :tag, '%')))")
     Page<Recipe> searchRecipesWithFilters(
             @Param("query") String query,
             @Param("difficulty") Difficulty difficulty,
             @Param("categoryId") Long categoryId,
+            @Param("tag") String tag,
             Pageable pageable);
     
     @Query("SELECT r FROM Recipe r JOIN r.categories c WHERE c.id = :categoryId AND r.isPublic = true")

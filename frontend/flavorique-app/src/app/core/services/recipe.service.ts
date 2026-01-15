@@ -20,22 +20,24 @@ export interface RecipeFilters {
 export class RecipeService {
   private readonly apiUrl = `${environment.apiUrl}/recipes`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getRecipes(
     page = 0,
     size = 12,
     sort?: string,
     difficulty?: Difficulty,
-    categoryId?: number
+    categoryId?: number,
+    tag?: string
   ): Observable<PageResponse<Recipe>> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-    
+
     if (sort) params = params.set('sort', sort);
     if (difficulty) params = params.set('difficulty', difficulty);
     if (categoryId) params = params.set('categoryId', categoryId.toString());
+    if (tag) params = params.set('tag', tag);
 
     return this.http.get<PageResponse<Recipe>>(this.apiUrl, { params });
   }
@@ -62,16 +64,18 @@ export class RecipeService {
     size = 12,
     sort?: string,
     difficulty?: Difficulty,
-    categoryId?: number
+    categoryId?: number,
+    tag?: string
   ): Observable<PageResponse<Recipe>> {
     let params = new HttpParams()
       .set('q', query)
       .set('page', page.toString())
       .set('size', size.toString());
-    
+
     if (sort) params = params.set('sort', sort);
     if (difficulty) params = params.set('difficulty', difficulty);
     if (categoryId) params = params.set('categoryId', categoryId.toString());
+    if (tag) params = params.set('tag', tag);
 
     return this.http.get<PageResponse<Recipe>>(`${this.apiUrl}/search`, { params });
   }
@@ -85,7 +89,7 @@ export class RecipeService {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-    
+
     if (sort) params = params.set('sort', sort);
 
     return this.http.get<PageResponse<Recipe>>(`${this.apiUrl}/author/${authorId}`, { params });

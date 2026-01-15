@@ -1,148 +1,95 @@
-# Recetas DTM (Disfunción Temporomandibular)
-## Dieta Blanda Terapéutica - Gastronomía Peruana
+# Catálogo de Recetas DTM (73 Recetas)
+## Dieta Blanda Terapéutica
 
-Esta colección presenta recetas tradicionales per
+Este documento lista las 73 recetas especializadas para Disfunción Temporomandibular (DTM) que han sido cargadas en la base de datos `flavorique`. Todas las recetas han sido optimizadas para texturas suaves, sin masticación intensa y alto valor nutricional.
 
-uanas adaptadas para pacientes con DTM que requieren una dieta blanda, suave y nutritiva.
+## 🍳 Sección 1: Desayunos y Bebidas (6)
+1. **Avena Cremosa con Puré de Plátano** (Suave/Sedosa)
+2. **Quinua Caliente "Al Paso"** (Bebible)
+3. **Huevos Revueltos con Queso Ricotta** (Húmedo)
+4. **Smoothie de Papaya, Plátano y Avena** (Licuado)
+5. **Yogur Griego con Puré de Aguaymanto** (Sin semillas)
+6. **Ponche de Habas** (Espeso/Nutritivo)
 
-## 🍳 Desayunos y Bebidas (6 recetas)
+## 🍲 Sección 2: Sopas y Cremas (11)
+7. **Crema de Zapallo Macre y Loche** (Aterciopelada)
+8. **Caldo Verde Cajamarquino Adaptado** (Papas deshechas)
+9. **Crema de Pallares Pelados** (Sin pieles)
+10. **Sopa de Lentejas Licuada con Cúrcuma** (Antiinflamatoria)
+11. **Crema de Arracacha** (Digestiva)
+12. **Gazpacho de Tomate y Sandía** (Fría/Hidratante)
+13. **Sopa a la Minuta** (Cabello de ángel)
+14. **Sopa Criolla** (Pan desintegrado)
+15. **Caldo de Bolas Tumbesino** (Masa suave)
+16. **Sopa de Morón** (Mucilaginosa)
+17. **Chupe de Habas** (Doble pelado)
 
-### 1. Avena Cremosa con Puré de Plátano
-- **Dificultad**: Fácil | **Tiempo**: 15 min
-- Avena cocida en leche hasta textura sedosa, endulzada con miel y canela
+## 🥗 Sección 3: Entradas y Ligeros (5)
+18. **Sopa Chairo** (Chuño machacado)
+19. **Sopa de Olluco** (Resbalosa)
+20. **Causa Limeña de Atún y Palta** (Puré fino)
+21. **Ají de Huevos** (Salsa suave)
+22. **Locro de Zapallo con Queso Fresco** (Aplastado)
 
-### 2. Quinua Caliente "Al Paso"
-- **Dificultad**: Fácil | **Tiempo**: 20 min
-- Bebida tradicional de quinua cocida con manzana, piña y canela
+## 🍛 Sección 4: Platos de Fondo - Variados (10)
+23. **Solterito de Quinua** (Picado brunoise)
+24. **Pescado Blanco al Vapor** (Desmenuzable)
+25. **Albóndigas de Res en Salsa** (Doble molienda)
+26. **Carapulcra de Champiñones** (Papa hidratada)
+27. **Pepián de Choclo** (Cremoso)
+28. **Tallarines Verdes con Queso Batido** (Pasta sobrecocida)
+29. **Humita en Olla** (Masa tierna)
+30. **Pastel de Papa Versión Puré** (Sin costra)
+31. **Cau Cau de Mondongo** (Gelatinoso)
+32. **Tamalito Verde** (Suave)
 
-### 3. Huevos Revueltos con Queso Ricotta
-- **Dificultad**: Fácil | **Tiempo**: 10 min
-- Preparados a fuego lento para textura jugosa y suave
+## 🍰 Sección 5: Postres Clásicos (9)
+33. **Mazamorra Morada con Frutas** (Picaditas)
+34. **Suspiro a la Limeña** (Cremoso)
+35. **Mousse de Lúcuma** (Aireado)
+36. **Flan de Plátano** (Sin masticar)
+37. **Pudín de Chía y Coco** (Gel)
+38. **Sanguito Cusqueño** (Pasta dulce)
+39. **Mazamorra de Cochino** (Chancaca)
+40. **Ranfañote** (Pan remojado)
+41. **Frejol Colado** (Dulce de frejol)
 
-### 4. Ponche de Habas o Kiwicha
-- **Dificultad**: Media | **Tiempo**: 30 min
-- Bebida espesa nutritiva rica en calcio y proteínas vegetales
+## 🍬 Sección 6: Dulces y Proteínas Suaves (10)
+42. **Arroz Zambito** (Muy cocido)
+43. **Leche Asada Suave** (Sin costra dura)
+44. **Crema Volteada** (Lisa)
+45. **Champús de Guanábana** (Espeso)
+46. **Dulce de Camote** (Almíbar)
+47. **Machacado de Membrillo** (Pasta)
+48. **Hummus con Pan Pita Blando** (Cremoso)
+49. **Sangrecita Guisada Húmeda** (Hierro)
+50. **Patita con Maní** (Colágeno)
+51. **Olluquito con Carne Molida** (Resbaloso)
 
-### 5. Smoothie de Papaya, Plátano y Avena
-- **Dificultad**: Fácil | **Tiempo**: 5 min
-- Licuado a alta velocidad, aporta enzimas digestivas
+## 🥩 Sección 7: Carnes y Pescados (10)
+52. **Caigua Rellena Suave** (Vapor)
+53. **Seco de Res Deshilachado** (Macerado)
+54. **Estofado de Pollo** (Deshuesado)
+55. **Tallarines Rojos** (Carne fina)
+56. **Hígado Encebollado Tierno** (No recocido)
+57. **Adobo Arequipeño** (Deshuesado)
+58. **Picante de Carne Húmedo** (Guiso)
+59. **Chanfainita de Bofe** (Esponjoso)
+60. **Sudado de Pescado** (Sudado)
+61. **Escabeche de Pescado Hervido** (No frito)
 
-### 6. Yogur Griego con Puré de Aguaymanto
-- **Dificultad**: Fácil | **Tiempo**: 5 min
-- Yogur con probióticos y aguaymanto triturado (sin semillas)
+## 🌿 Sección 8: Pescados y Pasteles Vegetales (5)
+62. **Pescado a la Chorrillana Pochado** (Hervido)
+63. **Sudado de Tramboyo** (Gelatinoso)
+64. **Quinoto de Pescado Cremoso** (Risotto)
+65. **Quinua Atamalada** (Bebible)
+66. **Pastel de Acelga** (Tipo Flan)
 
-## 🍲 Sopas y Cremas (6 recetas)
-
-### 7. Crema de Zapallo Macre y Loche
-- **Dificultad**: Fácil | **Tiempo**: 35 min
-- Textura aterciopelada rica en betacarotenos
-
-###8. Caldo Verde Cajamarquino (Adaptado)
-- **Dificultad**: Media | **Tiempo**: 40 min
-- Papas amarillas deshechas con huevo y hierbas licuadas
-
-### 9. Crema de Pallares Pelados
-- **Dificultad**: Media | **Tiempo**: 90 min
-- Pallares remojados y pelados, licuados con leche
-
-### 10. Sopa de Lentejas Licuada con Cúrcuma
-- **Dificultad**: Fácil | **Tiempo**: 45 min
-- Lentejas con cúrcuma antiinflamatoria
-
-### 11. Crema de Arracacha
-- **Dificultad**: Fácil | **Tiempo**: 30 min
-- Tubérculo andino de fácil digestión
-
-### 12. Gazpacho de Tomate y Sandía
-- **Dificultad**: Fácil | **Tiempo**: 15 min
-- Sopa fría hidratante, ideal para inflamación aguda
-
-## 🍽️ Platos de Fondo (12 recetas)
-
-### 13. Causa Limeña de Atún y Palta
-- **Dificultad**: Media | **Tiempo**: 30 min
-- Puré de papa amarilla prensada con atún y palta
-
-### 14. Ají de Huevos
-- **Dificultad**: Media | **Tiempo**: 35 min
-- Versión del ají de gallina con huevo duro picado
-
-### 15. Locro de Zapallo con Queso Fresco
-- **Dificultad**: Fácil | **Tiempo**: 40 min
-- Guiso de zapallo y papas en puré rústico
-
-### 16. Solterito de Quinua
-- **Dificultad**: Fácil | **Tiempo**: 25 min
-- Ensalada de quinua con queso fresco y palta
-
-### 17. Pescado Blanco al Vapor
-- **Dificultad**: Media | **Tiempo**: 20 min
-- Lenguado o merluza que se desmorona fácilmente
-
-### 18. Albóndigas de Res en Salsa de Tomate
-- **Dificultad**: Media | **Tiempo**: 50 min
-- Carne molida dos veces para máxima suavidad
-
-### 19. Carapulcra de Champiñones
-- **Dificultad**: Media | **Tiempo**: 60 min
-- Papa seca hidratada con champiñones
-
-### 20. Pepián de Choclo
-- **Dificultad**: Media | **Tiempo**: 35 min
-- Puré de maíz tierno licuado
-
-### 21. Tallarines Verdes con Queso Fresco Batido
-- **Dificultad**: Fácil | **Tiempo**: 25 min
-- Pasta cocida suave con salsa de espinaca licuada
-
-### 22. Humita en Olla de Sal
-- **Dificultad**: Media | **Tiempo**: 45 min
-- Masa de maíz tierno con queso derretido
-
-### 23. Pastel de Papa (Versión Puré)
-- **Dificultad**: Fácil | **Tiempo**: 40 min
-- Capas de puré rellenas de queso fundido
-
-### 24. Cau Cau de Mondongo
-- **Dificultad**: Difícil | **Tiempo**: 180 min
-- Mondongo picado y cocido hasta textura muy tierna
-
-## 🍰 Snacks y Postres (6 recetas)
-
-### 25. Hummus con Pan Pita Blando
-- **Dificultad**: Fácil | **Tiempo**: 10 min
-- Puré de garbanzos rico en magnesio
-
-### 26. Mazamorra Morada con Frutas Picaditas
-- **Dificultad**: Media | **Tiempo**: 50 min
-- Postre emblemático rico en antioxidantes
-
-### 27. Suspiro a la Limeña
-- **Dificultad**: Media | **Tiempo**: 60 min
-- Manjar cremoso con merengue al oporto
-
-### 28. Mousse de Lúcuma
-- **Dificultad**: Fácil | **Tiempo**: 20 min
-- Pulpa de lúcuma con crema batida
-
-### 29. Flan de Plátano o Camote
-- **Dificultad**: Media | **Tiempo**: 75 min
-- Postres horneados con potasio y fibra soluble
-
-### 30. Pudín de Chía y Coco
-- **Dificultad**: Fácil | **Tiempo**: 5 min + reposo
-- Semillas de chía hidratadas ricas en Omega-3
-
-## 📋 Recomendaciones de Preparación
-
-### Humedad
-Siempre acompaña las proteínas con salsas, caldos o purés para reducir la fricción al tragar.
-
-### Temperatura
-Prefiere alimentos tibios. El calor ayuda a relajar los músculos de la mandíbula.
-
-### Corte
-Corta todo en trozos menores a 1 cm para evitar aperturas bucales grandes.
-
-### Antiinflamatorios Naturales
-Integra jengibre, cúrcuma y aceite de oliva en los aderezos para ayudar a reducir la hinchazón articular.
+## 🥤 Sección 9: Finales y Bebidas (7)
+67. **Pastel de Coliflor Gratinado** (Suave)
+68. **Puré de Espinaca** (Liso)
+69. **Escribano Arequipeño** (Machacado)
+70. **Causa de Beterraga** (Puré rosa)
+71. **Siete Semillas** (Bebida)
+72. **Maca con Leche** (Espesa)
+73. **Emoliente Fortificado** (Linaza)

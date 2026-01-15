@@ -26,9 +26,18 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @GetMapping
-    @Operation(summary = "Get all public recipes")
+    @Operation(summary = "Get all public recipes with optional filters")
     public ResponseEntity<Page<RecipeDto>> getAllRecipes(
+            @RequestParam(required = false) String difficulty,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String tag,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        if (difficulty != null || categoryId != null || tag != null) {
+            Page<RecipeDto> recipes = recipeService.searchRecipesWithFilters(null, difficulty, categoryId, tag, pageable);
+            return ResponseEntity.ok(recipes);
+        }
+
         Page<RecipeDto> recipes = recipeService.getAllPublicRecipes(pageable);
         return ResponseEntity.ok(recipes);
     }
@@ -74,8 +83,9 @@ public class RecipeController {
             @RequestParam(required = false) String q,
             @RequestParam(required = false) String difficulty,
             @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String tag,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<RecipeDto> recipes = recipeService.searchRecipesWithFilters(q, difficulty, categoryId, pageable);
+        Page<RecipeDto> recipes = recipeService.searchRecipesWithFilters(q, difficulty, categoryId, tag, pageable);
         return ResponseEntity.ok(recipes);
     }
 

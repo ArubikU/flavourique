@@ -492,9 +492,29 @@ export class NavbarComponent {
 
   onSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const query = input.value.trim();
-    if (query) {
-      this.router.navigate(['/search'], { queryParams: { q: query } });
+    const rawValue = input.value.trim();
+
+    if (rawValue) {
+      // Parse tags (words starting with #)
+      const tags: string[] = [];
+      const queryParts: string[] = [];
+
+      rawValue.split(/\s+/).forEach(part => {
+        if (part.startsWith('#') && part.length > 1) {
+          tags.push(part.substring(1)); // Remove #
+        } else {
+          queryParts.push(part);
+        }
+      });
+
+      const query = queryParts.join(' ');
+      const tag = tags.length > 0 ? tags[0] : null; // Taking the first tag for now
+
+      const queryParams: any = {};
+      if (query) queryParams.q = query;
+      if (tag) queryParams.tag = tag;
+
+      this.router.navigate(['/recipes'], { queryParams }); // Use /recipes main list which now supports filters
       input.value = '';
     }
   }

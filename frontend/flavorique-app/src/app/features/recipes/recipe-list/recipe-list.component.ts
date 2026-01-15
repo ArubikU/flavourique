@@ -16,6 +16,8 @@ import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.
             Resultados para "{{ searchQuery() }}"
           } @else if (categoryFilter()) {
             Recetas de {{ categoryFilter() }}
+          } @else if (tagFilter()) {
+            Recetas con tag: #{{ tagFilter() }}
           } @else {
             Todas las Recetas
           }
@@ -290,11 +292,13 @@ export class RecipeListComponent implements OnInit {
   difficultyFilter = signal('');
   searchQuery = signal('');
   categoryFilter = signal('');
+  tagFilter = signal('');
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.searchQuery.set(params['q'] || '');
       this.categoryFilter.set(params['category'] || '');
+      this.tagFilter.set(params['tag'] || '');
       this.currentPage.set(0);
       this.loadRecipes();
     });
@@ -308,6 +312,7 @@ export class RecipeListComponent implements OnInit {
     const sort = this.currentSort();
     const difficulty = this.difficultyFilter() as Difficulty | undefined;
     const categoryId = this.categoryFilter() ? parseInt(this.categoryFilter(), 10) : undefined;
+    const tag = this.tagFilter();
 
     if (this.searchQuery()) {
       this.recipeService.searchRecipes(
@@ -316,7 +321,8 @@ export class RecipeListComponent implements OnInit {
         size,
         sort,
         difficulty,
-        categoryId
+        categoryId,
+        tag
       ).subscribe({
         next: (response) => this.handleResponse(response),
         error: () => this.loading.set(false),
@@ -327,7 +333,8 @@ export class RecipeListComponent implements OnInit {
         size,
         sort,
         difficulty,
-        categoryId
+        categoryId,
+        tag
       ).subscribe({
         next: (response) => this.handleResponse(response),
         error: () => this.loading.set(false),
