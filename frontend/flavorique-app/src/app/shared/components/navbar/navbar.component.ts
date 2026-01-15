@@ -14,7 +14,7 @@ import { AuthService } from '@core/services';
           <img src="/isotipo.png" alt="Flavorique" class="navbar-logo-icon" />
           <span class="navbar-logo-text">Flavorique</span>
           @if (isLianDay) {
-            <span class="lian-badge-mini">�</span>
+            <span class="lian-badge-mini">💚</span>
           }
         </a>
 
@@ -460,11 +460,11 @@ export class NavbarComponent {
   authService = inject(AuthService);
   showUserMenu = false;
   showMobileMenu = false;
-  
+
   // Dedicatoria a Lian Solorzano
   isLianDay = this.checkIfLianDay();
-  logoTooltip = this.isLianDay 
-    ? '💚 Hoy celebramos a Lian Solorzano, quien inspiró Flavorique 💚' 
+  logoTooltip = this.isLianDay
+    ? '💚 Hoy celebramos a Lian Solorzano, quien inspiró Flavorique 💚'
     : 'Inspirado por Lian Solorzano 💚';
 
   private checkIfLianDay(): boolean {
